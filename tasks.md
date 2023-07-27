@@ -36,6 +36,8 @@ Scottish League One
 SELECT code FROM divisions WHERE name = 'Bundesliga';
 SELECT division_code, COUNT(*) FROM matches WHERE hometeam = 'Freiburg' OR awayteam = 'Freiburg'  GROUP BY division_code; 
 
+SELECT COUNT(*) FROM matches WHERE division_code = 'D1' AND (hometeam = 'Freiburg' OR awayteam = 'Freiburg');
+
 count = 374
 
 
@@ -45,6 +47,8 @@ count = 374
 
 ```sql
 SELECT awayteam FROM matches WHERE LOWER(awayteam) LIKE LOWER ('%City%') GROUP BY awayteam; 
+or can do 
+SELECT DISTINCT awayteam FROM matches WHERE LOWER(awayteam) LIKE LOWER ('%City%'); -- this does not retain any of the underlying information but the first solution does
 Bath City
 Man City
 Edinburgh City
@@ -61,6 +65,9 @@ SELECT COUNT(*) FROM (SELECT hometeam FROM matches WHERE division_code = 'F1' OR
 
 OR TAREK'S SOLUTION 
 SELECT COUNT(*) FROM (SELECT DISTINCT matches.hometeam FROM divisions JOIN matches ON divisions.code=matches.division_code AND divisions.country = 'France') I
+
+or LAB REVIEW 
+SELECT COUNT(DISTINCT hometeam) FROM matches WHERE division_code IN ()'F1', 'F2')
 
 so the answer is 61
 
